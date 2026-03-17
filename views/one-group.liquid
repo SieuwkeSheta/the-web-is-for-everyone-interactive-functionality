@@ -1,0 +1,28 @@
+{% for OneSnappMap in SnappMapslist %}
+    {% render 'partials/head.liquid',  title: OneSnappMap.name, OneGroup: true, OneSnappMap: OneSnappMap%}
+{% endfor %}
+
+{% for OneSnappMap in SnappMapslist %}
+    {% comment %} Make variable for the date of 'today' {% endcomment %}
+    {% assign today_date = 'now' | date: '%Y%m%d' %}
+
+    {% for snappmap in OneSnappMap.snappmap %}
+        {% comment %} Make variable of the end-date of the 'snappmap' {% endcomment %}
+        {% assign target_date = snappmap.snappthis_snapmap_uuid.time_end | date: '%Y%m%d'%}
+
+        <ul>
+            <li>
+                <a href="/snappmaps/{{ snappmap.snappthis_snapmap_uuid.name }}">
+                    {{ snappmap.snappthis_snapmap_uuid.name }}
+                </a>
+            </li>
+            
+            {% comment %} If the end-date of the 'snapmap' has not yet ended before the date of 'today', add a text with 'Add your snapp!' {% endcomment %}
+            {% if target_date > today_date %}
+                <li class="active"><strong>Add your snapp!</strong></li>
+            {% endif %}
+        </ul>
+    {% endfor %}
+{% endfor %}
+
+{% render 'partials/foot.liquid', SnappthisGroups: true %}

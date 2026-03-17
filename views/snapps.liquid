@@ -1,0 +1,15 @@
+{% render 'partials/head.liquid', title: 'Snapps', MultipleSnapps: MultipleSnapps, path: path, pathLocation: pathLocation%}
+
+
+{% for OneSnapp in MultipleSnapps %}
+    <ul>
+        <li>
+            <a href="/snapps/{{ OneSnapp.uuid }}">
+            <img src="https://fdnd-agency.directus.app/assets/{{ OneSnapp.picture }}?width=300" alt="" width="150">
+            </a>
+        </li>
+    </ul>
+{% endfor %}
+
+
+{% render 'partials/foot.liquid', MultiplesnappsList: true %}
