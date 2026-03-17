@@ -26,14 +26,103 @@ app.set('views', './views')
 
 console.log('Let op: Er zijn nog geen routes. Voeg hier dus eerst jouw GET en POST routes toe.')
 
-/*
-// Zie https://expressjs.com/en/5x/api.html#app.get.method over app.get()
-app.get(…, async function (request, response) {
-  
-  // Zie https://expressjs.com/en/5x/api.html#res.render over response.render()
-  response.render(…)
+// Maak een GET route voor de index (meestal doe je dit in de root, als /)
+app.get('/', async function (request, response) {
+  // Render index.liquid uit de Views map
+  // Geef hier eventueel data aan mee
+  response.render('index.liquid')
 })
-*/
+
+// Maak een GET route voor alle Groups in de database
+app.get('/groups', async function (request, response) {
+
+  const MultipleGroupslistapiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_group?fields=name,snappmap.snappthis_snapmap_uuid.*&fields=count(users)')
+  const MultipleGroupslistapiResponseJSON = await MultipleGroupslistapiResponse.json()
+
+  // Geef hier eventueel data aan mee
+  response.render('groups.liquid', { MultipleGroupslist: MultipleGroupslistapiResponseJSON.data })
+})
+
+// Maak een GET route voor one-group met alle snappmaps
+app.get('/groups/:name', async function (request, response) {
+
+  const snappMapsapiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_group/?fields=*.*,snappmap.snappthis_snapmap_uuid.*&filter[name]=' + request.params.name)
+  const snappMapsapiResponseJSON = await snappMapsapiResponse.json()
+
+  // Geef hier eventueel data aan mee
+  response.render('one-group.liquid', { SnappMapslist: snappMapsapiResponseJSON.data })
+})
+
+// Maak een GET route voor alle Groups in de database
+app.get('/snappmaps', async function (request, response) {
+
+  const MultipleSnappMapslistApiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_snapmap')
+  const MultipleSnappMapslistApiResponseJSON = await MultipleSnappMapslistApiResponse.json()
+
+  // Geef hier eventueel data aan mee
+  response.render('snappmaps.liquid', { MultipleSnappMapslist: MultipleSnappMapslistApiResponseJSON.data })
+})
+
+// Maak een GET route voor one-snappmap met alle snapps
+app.get('/snappmaps/:name', async function (request, response) {
+
+  const OneSnappMappInfoApiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_snapmap?fields=*.*,groups.snappthis_group_uuid.name,groups.snappthis_group_uuid.snappmap.snappthis_snapmap_uuid.name&filter[name]=' + request.params.name)
+  const OneSnappMappInfoApiResponseJSON = await OneSnappMappInfoApiResponse.json()
+
+  // Geef hier eventueel data aan mee
+  response.render('one-snappmap.liquid', { OneSnappMappInfos: OneSnappMappInfoApiResponseJSON.data })
+})
+
+// Maak een GET route voor alle snapps in de database
+app.get('/snapps', async function (request, response) {
+
+  const MultipleSnappsApiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_snap?fields=*,snapmap.groups.snappthis_group_uuid.name&filter[picture][_neq]=null')
+  const MultipleSnappsApiResponseJSON = await MultipleSnappsApiResponse.json()
+  
+
+  // Geef hier eventueel data aan mee
+  response.render('snapps.liquid', { MultipleSnapps: MultipleSnappsApiResponseJSON.data, path: request.path })
+})
+
+// Maak een GET route voor alle snapps in de database op locatie
+app.get('/snapps/location/:location', async function (request, response) {
+
+  const MultipleSnappsApiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_snap?fields=*,snapmap.groups.snappthis_group_uuid.name&filter[picture][_neq]=null&filter[location]=' + request.params.location)
+  const MultipleSnappsApiResponseJSON = await MultipleSnappsApiResponse.json()
+
+  // Geef hier eventueel data aan mee
+  response.render('snapps.liquid', { MultipleSnapps: MultipleSnappsApiResponseJSON.data,  pathLocation: request.path})
+})
+
+
+// Maak een GET route voor one-snapp in de database
+app.get('/snapps/:uuid', async function (request, response) {
+
+  // Data van one-snapp in de database
+  const OneSnappApiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_snap?fields=*,snapmap.name,snapmap.groups.snappthis_group_uuid.name,author.*&filter[uuid]=' + request.params.uuid)
+  const OneSnappApiResponseJSON = await OneSnappApiResponse.json()
+
+  // Data van alle likes per one-snapp in de database
+  const LikesCountApiResponse = await fetch ('https://fdnd-agency.directus.app/items/snappthis_snap?fields=*,snapmap.name,snapmap.groups.snappthis_group_uuid.name,author.*,actions.action&deep[actions][_filter][action][_eq]=like&filter[uuid]=' + request.params.uuid)
+  const LikesCountApiResponseJSON = await LikesCountApiResponse.json()
+
+  // Data van alle dislikes per one-snapp in de database
+  const TomatoCountApiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_snap?fields=*,snapmap.name,snapmap.groups.snappthis_group_uuid.name,author.*,actions.action&deep[actions][_filter][action][_eq]=tomato&filter[uuid]=' + request.params.uuid)
+  const TomatoCountApiResponseJSON = await TomatoCountApiResponse.json()
+
+  // Data van alle stars per one-snapp in de database
+  const StarCountApiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_snap?fields=*,snapmap.name,snapmap.groups.snappthis_group_uuid.name,author.*,actions.action&deep[actions][_filter][action][_eq]=star&filter[uuid]=' + request.params.uuid)
+  const StarCountApiResponseJSON = await StarCountApiResponse.json()
+
+  // Geef hier eventueel data aan mee
+  response.render('one-snapp.liquid', { 
+    OneSnapps: OneSnappApiResponseJSON.data, 
+    Likescounts: LikesCountApiResponseJSON.data,
+    Tomatocounts: TomatoCountApiResponseJSON.data,
+    Starcounts: StarCountApiResponseJSON.data
+   })
+})
+
 
 /*
 // Zie https://expressjs.com/en/5x/api.html#app.post.method over app.post()
@@ -78,4 +167,9 @@ app.set('port', process.env.PORT || 8000)
 app.listen(app.get('port'), function () {
   // Toon een bericht in de console
   console.log(`Daarna kun je via http://localhost:${app.get('port')}/ jouw interactieve website bekijken.\n\nThe Web is for Everyone. Maak mooie dingen 🙂`)
+})
+
+// Render een liquid pagina als er een foutmelding is / pagina niet bestaat
+app.use((req, res, next) => {
+  res.status(404).render('error.liquid')
 })
