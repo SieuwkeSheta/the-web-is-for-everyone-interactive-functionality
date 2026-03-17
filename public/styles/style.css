@@ -1,0 +1,85 @@
+
+
+
+/* Active-state for footer */
+.active {
+    color: #00E53D;
+    svg {
+        fill: #00FF44;
+    }
+}
+
+/* Collapsible list in header for different snappmaps in same group */
+.header-collapsible-list{
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    h1 {
+        margin: 0;
+    }
+
+    &[open]::details-content{
+        position: absolute;
+        /* background-color: green; */
+    }
+
+    summary{
+    list-style: none;
+    }
+    ul {
+        background: white;
+        list-style-type: '';
+        padding: 0;
+        li {
+            font-size: 2em;
+            font-weight: 600;
+            a {
+                color: black;
+            }
+        }
+    }
+}
+
+/* Label and input to make a picture in snappmap */
+label[for="fileInput"] {
+    display: inline-block;
+    background-color: #00E53D;
+    padding: 2em;
+    border-radius: 50%;
+    
+    &:hover {
+        cursor: pointer;
+    }
+
+    svg {
+        fill: white;
+    }
+
+    &:hover {
+        background: #3cff70;
+    }
+}
+
+/* Standard size images */
+img {
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+
+header {
+    display: flex;
+    gap: 0.5em;
+
+    h1 {
+        margin: 0;
+    }
+}
+
+footer ul {
+    display: flex;
+    gap: 1em;
+    list-style-type: '';
+    padding: 0;
+}
