@@ -161,18 +161,51 @@ app.post("/snappmaps/:uuid", upload.single("file"), async (req, res) => {
     body: formData,
   })
 
-  // Als de POST niet gelukt is, kun je de response loggen. Sowieso een goede debugging strategie.
-  // console.log(fetchResponse)
+  // Parse the JSON response from Directus
+  const uploadResponseData = await uploadResponse.json();
 
-  // Eventueel kun je de JSON van die response nog debuggen
-  // const fetchResponseJSON = await fetchResponse.json()
-  // console.log(fetchResponseJSON)
+  // Extract the file ID from the response (Directus returns "id", not "uuid")
+  const imageId = uploadResponseData?.data?.id;
 
-  // Redirect de gebruiker daarna naar een logische volgende stap
-  // Zie https://expressjs.com/en/5x/api.html#res.redirect over response.redirect()
-  response.redirect(303, …)
+  // If no file ID is returned, the upload failed → send error response
+  if (!imageId) {
+    return res.send("Upload failed: No file ID returned");
+  }
+
+  // Step 2: Create new item in Directus
+
+  // Get snappmap uuid from route parameters
+  const snappmapuuid = req.params.uuid
+
+  // Create an object representing the new item to store in Directus
+  const newSnap = {
+    location: "Amsterdam Zuidoost",
+    snapmap: snappmapuuid,
+    author: "467a4442-69e4-44ae-829a-b95e25c4dd7b",
+    picture: imageId,
+  };
+
+  // Send a POST request to create a new item in Directus
+  const snapResponse = await fetch("https://fdnd-agency.directus.app/items/snappthis_snap", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newSnap),
+  });
+
+  // Parse the JSON response from Directus
+  const snapData = await snapResponse.json();
+
+  // If new item creation failed → send error response
+  if (!snapResponse.ok) {
+    return res.redirect(303, `/snappmaps/:uuid/?status=error`)
+  }
+
+  // If new item creation worked → Success response
+  res.redirect(303, `/snappmaps/:uuid/?status=success`)
 })
-*/
+
 
 
 // Stel het poortnummer in waar Express op moet gaan luisteren
