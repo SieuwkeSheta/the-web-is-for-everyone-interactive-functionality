@@ -48,9 +48,9 @@ app.get('/groups', async function (request, response) {
 })
 
 // Maak een GET route voor one-group met alle snappmaps
-app.get('/groups/:name', async function (request, response) {
+app.get('/groups/:slug', async function (request, response) {
 
-  const snappMapsapiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_group/?fields=*.*,snappmap.snappthis_snapmap_uuid.*&filter[name]=' + request.params.name)
+  const snappMapsapiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_group/?fields=*.*,snappmap.snappthis_snapmap_uuid.*&filter[slug]=' + request.params.slug)
   const snappMapsapiResponseJSON = await snappMapsapiResponse.json()
 
   // Geef hier eventueel data aan mee
