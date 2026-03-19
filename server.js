@@ -141,25 +141,24 @@ app.get('/snapps/:uuid', async function (request, response) {
 })
 
 
-/*
-// Zie https://expressjs.com/en/5x/api.html#app.post.method over app.post()
-app.post(…, async function (request, response) {
 
-  // In request.body zitten alle formuliervelden die een `name` attribuut hebben in je HTML
-  console.log(request.body)
+// Upload snapps
+app.post("/snappmaps/:uuid", upload.single("file"), async (req, res) => {
 
-  // Via een fetch() naar Directus vullen we nieuwe gegevens in
+  // Step 1: Upload file to Directus
 
-  // Zie https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch over fetch()
-  // Zie https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify over JSON.stringify()
-  // Zie https://docs.directus.io/reference/items.html#create-an-item over het toevoegen van gegevens in Directus
-  // Zie https://docs.directus.io/reference/items.html#update-an-item over het veranderen van gegevens in Directus
-  const fetchResponse = await fetch(…, {
-    method: …,
-    body: JSON.stringify(…),
-    headers: {
-      'Content-Type': 'application/json;charset=UTF-8'
-    }
+  // Get the uploaded file from the form in HTML
+  const file = req.file;
+
+  // Create a new FormData object to send file data in a multipart/form-data request
+  const formData = new FormData()
+  const blob = new Blob([file.buffer], { type: file.mimetype })
+  formData.append("file", blob, file.originalname)
+
+  // Send a POST request to Directus API to upload the file
+  const uploadResponse = await fetch("https://fdnd-agency.directus.app/files", {
+    method: "POST",
+    body: formData,
   })
 
   // Als de POST niet gelukt is, kun je de response loggen. Sowieso een goede debugging strategie.
