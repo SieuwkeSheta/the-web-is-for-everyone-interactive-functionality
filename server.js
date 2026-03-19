@@ -29,7 +29,6 @@ app.engine('liquid', engine.express())
 app.set('views', './views')
 
 
-console.log('Let op: Er zijn nog geen routes. Voeg hier dus eerst jouw GET en POST routes toe.')
 
 // Maak een GET route voor de index (meestal doe je dit in de root, als /)
 app.get('/', async function (request, response) {
@@ -41,7 +40,7 @@ app.get('/', async function (request, response) {
 // Maak een GET route voor alle Groups in de database
 app.get('/groups', async function (request, response) {
 
-  const MultipleGroupslistapiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_group?fields=name,snappmap.snappthis_snapmap_uuid.*&fields=count(users)')
+  const MultipleGroupslistapiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_group?fields=name,slug,snappmap.snappthis_snapmap_uuid.*&fields=count(users)')
   const MultipleGroupslistapiResponseJSON = await MultipleGroupslistapiResponse.json()
 
   // Geef hier eventueel data aan mee
