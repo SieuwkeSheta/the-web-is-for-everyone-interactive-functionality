@@ -82,7 +82,6 @@ app.get('/snapps', async function (request, response) {
 
   const MultipleSnappsApiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_snap?fields=*,snapmap.groups.snappthis_group_uuid.name&filter[picture][_neq]=null')
   const MultipleSnappsApiResponseJSON = await MultipleSnappsApiResponse.json()
-  
 
   // Geef hier eventueel data aan mee
   response.render('snapps.liquid', { MultipleSnapps: MultipleSnappsApiResponseJSON.data, path: request.path })
@@ -103,7 +102,7 @@ app.get('/snapps/location/:location', async function (request, response) {
 app.get('/snapps/:uuid', async function (request, response) {
 
   // Data van one-snapp in de database
-  const OneSnappApiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_snap?fields=*,snapmap.name,snapmap.groups.snappthis_group_uuid.name,author.*&filter[uuid]=' + request.params.uuid)
+  const OneSnappApiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_snap?fields=*,snapmap.name,snapmap.uuid,snapmap.groups.snappthis_group_uuid.name,author.*&filter[uuid]=' + request.params.uuid)
   const OneSnappApiResponseJSON = await OneSnappApiResponse.json()
 
   // Data van alle likes per one-snapp in de database
@@ -170,7 +169,7 @@ app.set('port', process.env.PORT || 8000)
 // Start Express op, gebruik daarbij het zojuist ingestelde poortnummer op
 app.listen(app.get('port'), function () {
   // Toon een bericht in de console
-  console.log(`Daarna kun je via http://localhost:${app.get('port')}/ jouw interactieve website bekijken.\n\nThe Web is for Everyone. Maak mooie dingen 🙂`)
+  console.log(`Application started on http://localhost:${app.get('port')}`)
 })
 
 // Render een liquid pagina als er een foutmelding is / pagina niet bestaat
