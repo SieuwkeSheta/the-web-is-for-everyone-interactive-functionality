@@ -70,7 +70,7 @@ app.get('/snappmaps', async function (request, response) {
 // Maak een GET route voor one-snappmap met alle snapps
 app.get('/snappmaps/:uuid', async function (request, response) {
 
-  const OneSnappMappInfoApiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_snapmap?fields=*.*,groups.snappthis_group_uuid.name,groups.snappthis_group_uuid.slug,groups.snappthis_group_uuid.snappmap.snppthis_snapmap_uuid.name&deep[snaps][_sort]=-date_created&filter[uuid]=' + request.params.uuid)
+  const OneSnappMappInfoApiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_snapmap?fields=*.*,groups.snappthis_group_uuid.name,groups.snappthis_group_uuid.slug,groups.snappthis_group_uuid.snappmap.snappthis_snapmap_uuid.name,groups.snappthis_group_uuid.snappmap.snappthis_snapmap_uuid.uuid&filter[uuid]=' + request.params.uuid)
   const OneSnappMappInfoApiResponseJSON = await OneSnappMappInfoApiResponse.json()
 
   // Geef hier eventueel data aan mee
