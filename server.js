@@ -82,6 +82,14 @@ app.get('/snappmaps/:uuid', async function (request, response) {
   })
 })
 
+// Maak een GET route voor capture-snapp voor het maken van een snapp
+app.get('/snappmaps/:uuid/capture', async function (request, response) {
+
+  const OneSnappMappNameApiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_snapmap?fields=name,slug,uuid&filter[uuid]=' + request.params.uuid)
+  const OneSnappMappNameApiResponseJSON = await OneSnappMappNameApiResponse.json()
+
+  // Geef hier eventueel data aan mee
+  response.render('capture-snapp.liquid', { OneSnappMappNames: OneSnappMappNameApiResponseJSON.data })
 })
 
 // Maak een GET route voor alle snapps in de database
