@@ -94,7 +94,7 @@ app.get('/snapps/location/:location', async function (request, response) {
   const MultipleSnappsApiResponseJSON = await MultipleSnappsApiResponse.json()
 
   // Geef hier eventueel data aan mee
-  response.render('snapps.liquid', { MultipleSnapps: MultipleSnappsApiResponseJSON.data,  pathLocation: request.path})
+  response.render('snapps.liquid', { MultipleSnapps: MultipleSnappsApiResponseJSON.data, pathLocation: request.path })
 })
 
 
