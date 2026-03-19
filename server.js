@@ -97,7 +97,6 @@ app.get('/snapps/location/:location', async function (request, response) {
   response.render('snapps.liquid', { MultipleSnapps: MultipleSnappsApiResponseJSON.data, pathLocation: request.path })
 })
 
-
 // Maak een GET route voor one-snapp in de database
 app.get('/snapps/:uuid', async function (request, response) {
 
@@ -106,7 +105,7 @@ app.get('/snapps/:uuid', async function (request, response) {
   const OneSnappApiResponseJSON = await OneSnappApiResponse.json()
 
   // Data van alle likes per one-snapp in de database
-  const LikesCountApiResponse = await fetch ('https://fdnd-agency.directus.app/items/snappthis_snap?fields=*,snapmap.name,snapmap.groups.snappthis_group_uuid.name,author.*,actions.action&deep[actions][_filter][action][_eq]=like&filter[uuid]=' + request.params.uuid)
+  const LikesCountApiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_snap?fields=*,snapmap.name,snapmap.groups.snappthis_group_uuid.name,author.*,actions.action&deep[actions][_filter][action][_eq]=like&filter[uuid]=' + request.params.uuid)
   const LikesCountApiResponseJSON = await LikesCountApiResponse.json()
 
   // Data van alle dislikes per one-snapp in de database
