@@ -11,8 +11,9 @@
         {% assign target_date = snappmap.snappthis_snapmap_uuid.time_end | date: '%Y%m%d'%}
     {% endfor %}
 
+
     {% comment %} If the end-date of the 'snapmap' has not yet ended before the date of 'today', make the name bold {% endcomment %}
-    <a href="/groups/{{ OneGroup.name }}">
+    <a href="/groups/{{ OneGroup.slug }}">
     {% if target_date > today_date %}
         <li><strong>{{ OneGroup.name}}</strong></li>
     {% else %}
