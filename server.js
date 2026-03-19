@@ -74,7 +74,14 @@ app.get('/snappmaps/:uuid', async function (request, response) {
   const OneSnappMappInfoApiResponseJSON = await OneSnappMappInfoApiResponse.json()
 
   // Geef hier eventueel data aan mee
-  response.render('one-snappmap.liquid', { OneSnappMappInfos: OneSnappMappInfoApiResponseJSON.data })
+  response.render('one-snappmap.liquid', {
+    OneSnappMappInfos: OneSnappMappInfoApiResponseJSON.data,
+
+    // Data om de url te checken op succes of error voor de POST request popup, 
+    status: request.query.status,
+  })
+})
+
 })
 
 // Maak een GET route voor alle snapps in de database
