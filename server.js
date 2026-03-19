@@ -117,12 +117,12 @@ app.get('/snapps/:uuid', async function (request, response) {
   const StarCountApiResponseJSON = await StarCountApiResponse.json()
 
   // Geef hier eventueel data aan mee
-  response.render('one-snapp.liquid', { 
-    OneSnapps: OneSnappApiResponseJSON.data, 
+  response.render('one-snapp.liquid', {
+    OneSnapps: OneSnappApiResponseJSON.data,
     Likescounts: LikesCountApiResponseJSON.data,
     Tomatocounts: TomatoCountApiResponseJSON.data,
     Starcounts: StarCountApiResponseJSON.data
-   })
+  })
 })
 
 
