@@ -1,0 +1,3 @@
+{% for OneSnappMappName in OneSnappMappNames %}
+  {% render 'partials/head.liquid', title: 'Capture Snapp', captureSnapp: true, OneSnappMappName: OneSnappMappName.uuid %}
+{% endfor %}
