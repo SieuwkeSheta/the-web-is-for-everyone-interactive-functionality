@@ -33,7 +33,9 @@
     <p class="active"><strong>Add your snapp!</strong></p>
   {% endif %}
 
-  {% for snapps in OneSnappMappInfo.snaps %}
+  {% assign sorted_snaps = OneSnappMappInfo.snaps | sort: "date_created" | reverse %}
+
+  {% for snapps in sorted_snaps %}
     <ul>
       <li>
         <a href="/snapps/{{ snapps.uuid }}">

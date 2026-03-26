@@ -13,11 +13,11 @@
         <li>
             {% comment %} If the end-date of one of the 'snappmaps' has not yet ended before the date of 'today', make the name bold {% endcomment %}
             {% if target_date > today_date %}
-                <a href="/snappmaps/{{ OneSnappMap.uuid }}">
+                <a href="/snappmaps/{{ OneSnappMap.slug }}">
                     <strong>{{ OneSnappMap.name }}</strong>
                 </a>
                 {% else %}
-                <a href="/snappmaps/{{ OneSnappMap.uuid }}">
+                <a href="/snappmaps/{{ OneSnappMap.slug }}">
                     {{ OneSnappMap.name }}
                 </a>
             {% endif %}

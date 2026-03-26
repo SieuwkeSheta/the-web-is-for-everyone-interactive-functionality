@@ -68,9 +68,9 @@ app.get('/snappmaps', async function (request, response) {
 })
 
 // Maak een GET route voor one-snappmap met alle snapps
-app.get('/snappmaps/:uuid', async function (request, response) {
+app.get('/snappmaps/:slug', async function (request, response) {
 
-  const OneSnappMappInfoApiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_snapmap?fields=*.*,groups.snappthis_group_uuid.name,groups.snappthis_group_uuid.slug,groups.snappthis_group_uuid.snappmap.snappthis_snapmap_uuid.name,groups.snappthis_group_uuid.snappmap.snappthis_snapmap_uuid.uuid&filter[uuid]=' + request.params.uuid)
+  const OneSnappMappInfoApiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_snapmap?fields=*.*,groups.snappthis_group_uuid.name,groups.snappthis_group_uuid.slug,groups.snappthis_group_uuid.snappmap.snappthis_snapmap_uuid.name,groups.snappthis_group_uuid.snappmap.snappthis_snapmap_uuid.uuid&filter[slug]=' + request.params.slug)
   const OneSnappMappInfoApiResponseJSON = await OneSnappMappInfoApiResponse.json()
 
   // Geef hier eventueel data aan mee
@@ -83,9 +83,9 @@ app.get('/snappmaps/:uuid', async function (request, response) {
 })
 
 // Maak een GET route voor capture-snapp voor het maken van een snapp
-app.get('/snappmaps/:uuid/capture', async function (request, response) {
+app.get('/snappmaps/:slug/capture', async function (request, response) {
 
-  const OneSnappMappNameApiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_snapmap?fields=name,slug,uuid&filter[uuid]=' + request.params.uuid)
+  const OneSnappMappNameApiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_snapmap?fields=name,slug,uuid&filter[slug]=' + request.params.slug)
   const OneSnappMappNameApiResponseJSON = await OneSnappMappNameApiResponse.json()
 
   // Geef hier eventueel data aan mee
@@ -116,7 +116,7 @@ app.get('/snapps/location/:location', async function (request, response) {
 app.get('/snapps/:uuid', async function (request, response) {
 
   // Data van one-snapp in de database
-  const OneSnappApiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_snap?fields=*,snapmap.name,snapmap.uuid,snapmap.groups.snappthis_group_uuid.name,author.*&filter[uuid]=' + request.params.uuid)
+  const OneSnappApiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_snap?fields=*,snapmap.name,snapmap.uuid,snapmap.slug,snapmap.groups.snappthis_group_uuid.name,author.*&filter[uuid]=' + request.params.uuid)
   const OneSnappApiResponseJSON = await OneSnappApiResponse.json()
 
   // Data van alle likes per one-snapp in de database
@@ -143,7 +143,7 @@ app.get('/snapps/:uuid', async function (request, response) {
 
 
 // Upload snapps
-app.post("/snappmaps/:uuid", upload.single("file"), async (req, res) => {
+app.post("/snappmaps/:slug", upload.single("file"), async (req, res) => {
 
   // Step 1: Upload file to Directus
 
@@ -174,8 +174,8 @@ app.post("/snappmaps/:uuid", upload.single("file"), async (req, res) => {
 
   // Step 2: Create new item in Directus
 
-  // Get snappmap uuid from route parameters
-  const snappmapuuid = req.params.uuid
+  // Get snappmap uuid from hidden input in form-element (capture-snapp.liquid)
+  const snappmapuuid = req.body.uuid
 
   // Create an object representing the new item to store in Directus
   const newSnap = {
@@ -194,16 +194,13 @@ app.post("/snappmaps/:uuid", upload.single("file"), async (req, res) => {
     body: JSON.stringify(newSnap),
   });
 
-  // Parse the JSON response from Directus
-  const snapData = await snapResponse.json();
-
   // If new item creation failed → send error response
   if (!snapResponse.ok) {
-    return res.redirect(303, `/snappmaps/:uuid/?status=error`)
+    return res.redirect(303, `/snappmaps/${req.params.slug}/?status=error`)
   }
 
   // If new item creation worked → Success response
-  res.redirect(303, `/snappmaps/:uuid/?status=success`)
+  res.redirect(303, `/snappmaps/${req.params.slug}/?status=success`)
 })
 
 

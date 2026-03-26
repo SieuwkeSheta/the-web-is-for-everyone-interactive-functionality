@@ -76,7 +76,7 @@
                 {% comment %} Check if a name of other snappmap is not the same as the header name, if it's not than show the name {% endcomment %}
                 {% if snappmap.snappthis_snapmap_uuid.name != headerName %}
                   <ul>
-                    <li><a href="/snappmaps/{{ snappmap.snappthis_snapmap_uuid.uuid }}">{{ snappmap.snappthis_snapmap_uuid.name }}</a></li>
+                    <li><a href="/snappmaps/{{ snappmap.snappthis_snapmap_uuid.slug }}">{{ snappmap.snappthis_snapmap_uuid.name }}</a></li>
                   </ul> 
                 {% endif %}
               {% endfor %}
