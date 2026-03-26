@@ -25,6 +25,23 @@ html {
     }
 }
 
+/* Custom properties */
+:root {
+    /* Custom colors */
+    --dark-nav-bar-bg-color: rgb(23 47 59);
+    --text-color-on-light-bg: rgb(144 161 170);
+    --highlighted-areas-bg-color: rgb(233 236 238);
+    --lightest-color: rgb(255 255 255);
+    --accent-color-on-light-bg: rgb(0 229 61);
+    --accent-color-on-dark-bg: rgb(0 255 68);
+    --alert-accent-color: rgb(255 42 52);
+
+    /* Custom font-size */
+    --font-size-l: 2.625rem;
+    --font-size-m: 2.25rem;
+    --font-size-s: 1.875rem;
+    --font-size-xs: 1.688rem;
+}
 
 
 /* Active-state for footer */
