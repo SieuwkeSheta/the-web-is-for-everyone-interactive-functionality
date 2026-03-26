@@ -1,3 +1,29 @@
+/* Algemeen */
+* {
+    /* Zorgt ervoor dat de padding en border bij de breedte horen */
+    box-sizing: border-box;
+    margin: 0;
+}
+/* Custom fonts */
+@font-face {
+    font-family: 'Bariol-Bold';
+    src: url('../fonts/Bariol_Bold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Bariol-Regular';
+    src: url('../fonts/Bariol_Regular.otf') format('opentype');
+}
+
+/* Algemeen */
+html {
+    font-family: 'Bariol-Regular', Verdana, Geneva, Tahoma, sans-serif;
+
+    /* Scrollen in html element-gaat smooth */
+    @media (prefers-reduced-motion: no-preference) {
+        scroll-behavior: smooth;
+    }
+}
 
 
 
