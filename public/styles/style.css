@@ -4,6 +4,7 @@
     box-sizing: border-box;
     margin: 0;
 }
+
 /* Custom fonts */
 @font-face {
     font-family: 'Bariol-Bold';
@@ -30,17 +31,25 @@ html {
     /* Custom colors */
     --dark-nav-bar-bg-color: rgb(23 47 59);
     --text-color-on-light-bg: rgb(144 161 170);
+    --dark-text-color-on-light-bg: rgb(34 68 85);
     --highlighted-areas-bg-color: rgb(233 236 238);
     --lightest-color: rgb(255 255 255);
     --accent-color-on-light-bg: rgb(0 229 61);
     --accent-color-on-dark-bg: rgb(0 255 68);
     --alert-accent-color: rgb(255 42 52);
+    --icon-color-on-light-bg: rgb(78 105 119);
 
     /* Custom font-size */
+    /* Font sizes */
     --font-size-l: 2.625rem;
     --font-size-m: 2.25rem;
+    --font-size-m: clamp(1.7em, 6dvw, 2.1em);
     --font-size-s: 1.875rem;
     --font-size-xs: 1.688rem;
+    --font-size-xs: clamp(1em, 4dvw, 1.2em);
+
+    --icon-height: clamp(1.5em, 6dvw, 2em);
+    --container-heights: clamp(2em, 11vh, 5em);
 }
 
 
