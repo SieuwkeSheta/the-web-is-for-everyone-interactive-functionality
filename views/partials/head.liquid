@@ -12,13 +12,12 @@
 
     {% comment %} index.liquid {% endcomment %}
     {% if Home%}
-        <header class="home-top-navbar">
-          <h1>Home<h1>
         <header>
-      
+          <h1>Home</h1>
+        </header>
       {% comment %} groups.liquid {% endcomment %}
       {% elsif MultipleGroups %}
-        <header class="groups-top-navbar">
+        <header class="items-2-top-nav-bar">
           <h1>Your groups</h1>
           <button>
             <svg height="30" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
@@ -30,7 +29,7 @@
 
       {% comment %} one-group.liquid {% endcomment %}
       {% elsif OneGroup %}
-        <header class="one-group-top-navbar">
+        <header>
           <a href="/groups">
             <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" height="30">
               <title>Go back to your groups</title>
@@ -48,7 +47,7 @@
 
       {% comment %} snappmaps.liquid {% endcomment %}
       {% elsif MultipleSnappMapslist %}
-        <header class="snappmaps-top-navbar">
+        <header class="items-2-top-nav-bar">
           <h1>Snappmaps</h1>
           <button>
             <svg height="30" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
@@ -60,12 +59,12 @@
       
       {% comment %} one-snappmap.liquid {% endcomment %}
       {% elsif OneSnappMap %}
-        <header class="one-snappmap-top-navbar">
+        <header class="items-2-top-nav-bar">
           {% comment %} Make variable of the header name {% endcomment %}
           {% assign headerName = OneSnappMappInfo.name %}
           
           <details class="header-collapsible-list">
-            <summary><h1>{{OneSnappMappInfo.name}}</h1></summary>
+            <summary><h1>{{OneSnappMappInfo.name}} </h1></summary>
 
             {% comment %} List of names of other snappmaps in the same group {% endcomment %}
             {% for groups in OneSnappMappInfo.groups %}
@@ -142,27 +141,45 @@
               </label>
           </form>
         </header>
+      
+      {% comment %} capture-snapp.liquid {% endcomment %}
       {% elsif captureSnapp %}
-        <header class="snapps-top-navbar">
+        <header class="items-2-top-nav-bar">
           <a href="/snappmaps/{{ OneSnappMappName }}">
             <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" height="30">
               <title>Go back to snappmap '{{ OneSnappMappName }}'</title>
               <path fill-rule="evenodd" clip-rule="evenodd" d="M7.6 14L18.8 2.8L16 0L0 16L16 32L18.8 29.2L7.6 18H32V14H7.6Z" fill=""/>
             </svg>
           </a>
-          <h1>Capture Snapp</h1>
+          {% comment %} <h1>Capture Snapp</h1> {% endcomment %}
         </header>
       
       {% comment %} snapps.liquid {% endcomment %}
       {% elsif path %}
-        <header class="snapps-top-navbar">
+        <header class="items-2-top-nav-bar">
           <h1>Snapps</h1>
+
+          <button>
+            <svg viewBox="0 0 37 37" xmlns="http://www.w3.org/2000/svg" height="30">
+              <title>Change gridsize</title>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M0.894775 9.40015H9.89478V0.400146H0.894775V9.40015V9.40015ZM14.3948 36.4001H23.3948V27.4001H14.3948V36.4001V36.4001ZM0.894775 36.4001H9.89478V27.4001H0.894775V36.4001V36.4001ZM0.894775 22.9001H9.89478V13.9001H0.894775V22.9001V22.9001ZM14.3948 22.9001H23.3948V13.9001H14.3948V22.9001V22.9001ZM27.8948 0.400146V9.40015H36.8948V0.400146H27.8948V0.400146ZM14.3948 9.40015H23.3948V0.400146H14.3948V9.40015V9.40015ZM27.8948 22.9001H36.8948V13.9001H27.8948V22.9001V22.9001ZM27.8948 36.4001H36.8948V27.4001H27.8948V36.4001V36.4001Z" fill=""/>
+            </svg>
+          </button>
         </header>
+      
+      {% comment %} All snapps in 1 location {% endcomment %}
       {% elsif pathLocation %}
-        <header class="snapps-top-navbar">
+        <header class="items-2-top-nav-bar">
           {% for OneSnapp in MultipleSnapps limit: 1 %}
             <h1>{{ OneSnapp.location}}</h1>
           {% endfor %}
           
+          <button>
+            <svg viewBox="0 0 37 37" xmlns="http://www.w3.org/2000/svg" height="30">
+              <title>Change gridsize</title>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M0.894775 9.40015H9.89478V0.400146H0.894775V9.40015V9.40015ZM14.3948 36.4001H23.3948V27.4001H14.3948V36.4001V36.4001ZM0.894775 36.4001H9.89478V27.4001H0.894775V36.4001V36.4001ZM0.894775 22.9001H9.89478V13.9001H0.894775V22.9001V22.9001ZM14.3948 22.9001H23.3948V13.9001H14.3948V22.9001V22.9001ZM27.8948 0.400146V9.40015H36.8948V0.400146H27.8948V0.400146ZM14.3948 9.40015H23.3948V0.400146H14.3948V9.40015V9.40015ZM27.8948 22.9001H36.8948V13.9001H27.8948V22.9001V22.9001ZM27.8948 36.4001H36.8948V27.4001H27.8948V36.4001V36.4001Z" fill=""/>
+            </svg>
+          </button>
         </header>
     {% endif %}
+    <main>
