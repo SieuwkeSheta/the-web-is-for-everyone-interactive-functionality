@@ -233,7 +233,63 @@ img {
     color: var(--accent-color-on-light-bg);
 
     svg {
-        fill: white;
+        fill: var(--accent-color-on-dark-bg);
+    }
+}
+
+
+/* List overview groups/snappmaps - groups.liquid and snappmaps.liquid */
+.list {
+    position: relative;
+    display: grid;
+    align-content: center;
+    list-style: '';
+    padding: 0 5dvw;
+    border-bottom: 1px solid black;
+    height: var(--container-heights);
+
+    li:nth-of-type(2),
+    li:nth-of-type(3) {
+        font-size: var(--font-size-xs);
+    }
+
+    .members-count {
+        color: var(--text-color-on-light-bg);
+    }
+
+    .buttons-in-list {
+        position: absolute;
+        right: 0;
+        align-self: center;
+
+        ul {
+            display: flex;
+            padding: 0 5dvw 0 0;
+            list-style: '';
+            column-gap: 0.5em;
+
+            button {
+                display: inline-flex;
+                padding: 0;
+                background: none;
+                border: none;
+                cursor: pointer;
+                fill: var(--icon-color-on-light-bg);
+                vertical-align: center;
+
+                &:hover,
+                &:focus {
+                    transition: 0.2s;
+                    scale: 1.1;
+                }
+
+                &:active {
+                    scale: 1;
+                }
+            }
+        }
+    }
+}
     }
 }
 
