@@ -324,6 +324,31 @@ img {
         letter-spacing: 0.1em;
     }
 
+    p:nth-of-type(2) {
+        font-size: var(--font-size-xs);
+        padding-bottom: 1.5em;
+    }
+}
+
+/* Groupname in overview of 1 snappmap or 1 snapp - one-snappmap.liquid and one-snapp.liquid */
+.group-name-in-snappmap-or-snapp {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 0.4em;
+    padding: 0 5dvw;
+    min-height: var(--container-heights);
+
+    font-size: var(--font-size-m);
+    color: var(--text-color-on-light-bg);
+
+    svg {
+        fill: var(--text-color-on-light-bg);
+        height: clamp(0.9em, 4dvw, 1.1em);
+        translate: 0 -4px;
+    }
+}
+
 .add-snapp-link-button {
     display: inline-block;
     background-color: #00E53D;
