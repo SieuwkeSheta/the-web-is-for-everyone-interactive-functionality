@@ -504,4 +504,56 @@ img {
         }
     }
 }
+
+/* Succes and error state - one-snappmap.liquid and capture-snapp.liquid */
+.status-succes-or-error {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    background-color: var(--lightest-color);
+    padding: clamp(2em, 6vw, 4em) 1.5em;
+    width: clamp(14em, 60dvw, 25em);
+    text-align: center;
+
+    box-shadow: 0px 1px 10px rgb(0, 0, 0);
+
+    P {
+        font-size: var(--font-size-xs);
+    }
+
+    a:nth-of-type(1) {
+        margin-top: 1em;
+        display: inline-block;
+        padding: 1em;
+        border-radius: 100%;
+        background-color: var(--accent-color-on-light-bg);
+        width: fit-content;
+        color: var(--lightest-color);
+        font-family: 'Bariol-Bold', Verdana, Geneva, Tahoma, sans-serif;
+        text-decoration: none;
+    }
+
+    a:nth-of-type(2) {
+        display: block;
+        padding-top: 0.4em;
+        color: var(--text-color-on-light-bg);
+        text-decoration: none;
+    }
+
+    a {
+
+        &:hover,
+        &:focus {
+            transition: 0.2s;
+            scale: 1.1;
+        }
+
+        &:active {
+            scale: 1;
+        }
+    }
+
+
 }
