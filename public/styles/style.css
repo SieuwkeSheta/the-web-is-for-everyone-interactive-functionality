@@ -290,6 +290,23 @@ img {
         }
     }
 }
+
+/* Link in overview groups/snappmaps list - groups.liquid and snappmaps.liquid */
+.link-in-list {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--dark-text-color-on-light-bg);
+    font-size: var(--font-size-m);
+
+    &:hover,
+    &:focus {
+        cursor: pointer;
+        scale: 1.1;
+        transition: 0.2s;
+    }
+
+    &:active {
+        scale: 1;
     }
 }
 
