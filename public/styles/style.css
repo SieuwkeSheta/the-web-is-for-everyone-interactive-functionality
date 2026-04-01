@@ -393,18 +393,41 @@ img {
     }
 }
 
-header {
-    display: flex;
-    gap: 0.5em;
 
-    h1 {
-        margin: 0;
+.one-snapp-page {
+    img {
+        width: 100%;
     }
+
+
+    div {
+        padding: 0.1em 0.2em 1em;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.2em;
+        font-size: var(--font-size-xs);
+
+        a {
+            padding: 1em 1.5em;
+            border-radius: 2em;
+            background-color: var(--highlighted-areas-bg-color);
+            color: var(--dark-text-color-on-light-bg);
+            text-decoration: none;
+
+            &:hover,
+            &:focus {
+                transition: 0.2s;
+                scale: 1.1;
+            }
+        }
+
+        p {
+            color: var(--text-color-on-light-bg);
+            text-transform: capitalize;
+        }
+    }
+
 }
 
-footer ul {
-    display: flex;
-    gap: 1em;
-    list-style-type: '';
-    padding: 0;
 }
