@@ -162,13 +162,28 @@ header {
     }
 }
 
-/* Label and input to make a picture in snappmap */
-.upload-snap {
-    cursor: pointer;
+/* Like, dislike and save form in header for 1 snapp */
+.like-dislike-save-form {
+    grid-column: 3;
+    display: flex;
+    align-items: center;
+    gap: 2em;
 
-    &:focus-within {
-        outline: 2px solid darkblue;
+    label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.2em;
+
+        button:hover {
+            scale: 1.2;
+        }
+
+        svg {
+            height: clamp(1.2em, 4dvw, 1.8em);
+        }
     }
+}
 
 footer {
     display: grid;
@@ -185,11 +200,19 @@ footer {
         justify-content: space-around;
         list-style-type: '';
         padding: 0;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap; 
-        clip-path: inset(50%);
-        border: 0;
+
+        li a {
+            display: inline-block;
+
+            &:hover {
+                transition: 0.2s;
+                scale: 1.1;
+            }
+
+            &:active {
+                scale: 1;
+            }
+        }
     }
 
     svg {
