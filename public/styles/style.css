@@ -310,6 +310,19 @@ img {
     }
 }
 
+/* Top section in overview of 1 snappmap with 'add snapp' link - one-snappmap.liquid */
+.section-snappmap-add-snap {
+    display: grid;
+
+    p {
+        justify-self: center;
+    }
+
+    p:nth-of-type(1) {
+        font-size: 2em;
+        color: var(--dark-text-color-on-light-bg);
+        letter-spacing: 0.1em;
+    }
 
 .add-snapp-link-button {
     display: inline-block;
