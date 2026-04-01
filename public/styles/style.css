@@ -107,28 +107,56 @@ header {
     details {
         grid-column: 2;
     }
+}
+
+/* Collapsible list in header for different snappmaps in same group */
+.header-collapsible-list {
+    cursor: pointer;
+    z-index: 2;
 
     h1 {
         margin: 0;
     }
 
-    &[open]::details-content{
+    /* When details is open, style the dropdown */
+    &[open] ul {
         position: absolute;
-        /* background-color: green; */
+        top: 100%;
+        left: 0;
+        right: 0;
+        width: auto;
+        margin: 0;
+        padding: 0;
+        background: var(--dark-nav-bar-bg-color);
     }
 
-    summary{
-    list-style: none;
+    summary {
+        list-style: none;
+        cursor: pointer;
+
+        &:hover {
+            transition: 0.3s;
+            scale: 1.05;
+        }
     }
+
     ul {
-        background: white;
-        list-style-type: '';
+        list-style: none;
         padding: 0;
+        font-size: var(--font-size-m);
+        font-weight: 600;
+
         li {
-            font-size: 2em;
-            font-weight: 600;
+            display: grid;
+            justify-content: center;
+            min-height: var(--container-heights);
+            border-top: 1px solid var(--lightest-color);
+
             a {
-                color: black;
+                align-self: center;
+                display: block;
+                color: var(--lightest-color);
+                text-decoration: none;
             }
         }
     }
