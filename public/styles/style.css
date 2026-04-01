@@ -39,13 +39,10 @@ html {
     --alert-accent-color: rgb(255 42 52);
     --icon-color-on-light-bg: rgb(78 105 119);
 
-    /* Custom font-size */
     /* Font sizes */
     --font-size-l: 2.625rem;
-    --font-size-m: 2.25rem;
     --font-size-m: clamp(1.7em, 6dvw, 2.1em);
     --font-size-s: 1.875rem;
-    --font-size-xs: 1.688rem;
     --font-size-xs: clamp(1em, 4dvw, 1.2em);
 
     --icon-height: clamp(1.5em, 6dvw, 2em);
@@ -53,16 +50,55 @@ html {
 }
 
 
-/* Active-state for footer */
-.active {
-    color: #00E53D;
+header,
+footer {
+    min-height: var(--container-heights);
+    background-color: var(--dark-nav-bar-bg-color);
+    color: var(--lightest-color);
+
+    h1 {
+        font-size: var(--font-size-m);
+        text-align: center;
+    }
+
     svg {
-        fill: #00FF44;
+        fill: var(--lightest-color);
+        height: var(--icon-height);
+    }
+
+    button {
+        background: none;
+        border: none;
+        display: inline-flex;
+        justify-self: end;
+        padding: 0;
+    }
+
+    a,
+    button {
+
+        &:hover,
+        &:focus {
+            transition: 0.2s;
+            scale: 1.1;
+            cursor: pointer;
+        }
+
+        &:active {
+            scale: 1;
+        }
     }
 }
 
-/* Collapsible list in header for different snappmaps in same group */
-.header-collapsible-list{
+header {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 0 5dvw;
+}
 
     &:hover {
         cursor: pointer;
@@ -102,10 +138,20 @@ html {
         outline: 2px solid darkblue;
     }
 
-    input[id="upload-snapp"] {
-        position: absolute;
-        width: 1px;
-        height: 1px;
+footer {
+    display: grid;
+    align-items: center;
+    position: sticky;
+    width: 100%;
+    bottom: 0;
+    margin-top: auto;
+    z-index: 1;
+
+    ul {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        list-style-type: '';
         padding: 0;
         overflow: hidden;
         clip: rect(0, 0, 0, 0);
