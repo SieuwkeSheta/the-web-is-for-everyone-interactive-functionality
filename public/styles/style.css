@@ -349,21 +349,32 @@ img {
     }
 }
 
+/* Add snapp button/link - one-snappmap.liquid and capture-snapp.liquid*/
 .add-snapp-link-button {
+    justify-self: center;
+    width: fit-content;
+    align-self: center;
     display: inline-block;
-    background-color: #00E53D;
-    padding: 2em;
+    background-color: var(--accent-color-on-light-bg);
+    padding: 2.2em;
     border-radius: 50%;
 
     svg {
         fill: white;
+        height: 2.2em;
+    }
+
+    &:hover,
+    &:focus {
+        transition: 0.2s;
+        scale: 1.05;
+    }
+
+    &:active {
+        scale: 1;
     }
 }
 
-/* Standard size images */
-img {
-    aspect-ratio: 1;
-    object-fit: cover;
 }
 
 header {
