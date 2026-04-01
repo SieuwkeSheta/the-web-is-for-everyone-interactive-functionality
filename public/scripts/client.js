@@ -1,6 +1,7 @@
 // Zoeken elementen op in de DOM
 const imageInputSelector = document.getElementById("upload-snapp")
 const imagePreview = document.getElementById("display-image")
+const SendButton = document.getElementById("send-button")
 
 // Wacht tot input veranderd
 imageInputSelector.addEventListener('change', handleImageUpload)
@@ -22,7 +23,11 @@ function handleImageUpload(event) {
   
   // Stap 5: Laat geselecteerde foto zien
   function previewImage(event) {
+    // Stap 5: Laat geselecteerde foto zien
     imagePreview.src = imageReader.result;
+    
+    // Voeg een class toe aan de submit button om het zichtbaar te maken
+    SendButton.classList.add("display")
   }
   
 } 
