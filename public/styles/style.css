@@ -228,6 +228,9 @@ img {
     object-fit: cover;
 }
 
+/* Active-state for footer and 'Add your snapp!' */
+.active {
+    color: var(--accent-color-on-light-bg);
 
     svg {
         fill: white;
