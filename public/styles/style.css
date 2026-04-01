@@ -100,8 +100,12 @@ header {
     padding: 0 5dvw;
 }
 
-    &:hover {
-        cursor: pointer;
+/* Header with 2 items */
+.items-2-top-nav-bar {
+
+    h1,
+    details {
+        grid-column: 2;
     }
 
     h1 {
