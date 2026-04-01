@@ -70,7 +70,7 @@ app.get('/snappmaps', async function (request, response) {
 // Maak een GET route voor one-snappmap met alle snapps
 app.get('/snappmaps/:slug', async function (request, response) {
 
-  const OneSnappMappInfoApiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_snapmap?fields=*.*,groups.snappthis_group_uuid.name,groups.snappthis_group_uuid.slug,groups.snappthis_group_uuid.snappmap.snappthis_snapmap_uuid.name,groups.snappthis_group_uuid.snappmap.snappthis_snapmap_uuid.uuid&filter[slug]=' + request.params.slug)
+  const OneSnappMappInfoApiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_snapmap?fields=*.*,groups.snappthis_group_uuid.name,groups.snappthis_group_uuid.slug,groups.snappthis_group_uuid.snappmap.snappthis_snapmap_uuid.name,groups.snappthis_group_uuid.snappmap.snappthis_snapmap_uuid.slug,groups.snappthis_group_uuid.snappmap.snappthis_snapmap_uuid.uuid&filter[slug]=' + request.params.slug)
   const OneSnappMappInfoApiResponseJSON = await OneSnappMappInfoApiResponse.json()
 
   // Geef hier eventueel data aan mee
@@ -89,7 +89,12 @@ app.get('/snappmaps/:slug/capture', async function (request, response) {
   const OneSnappMappNameApiResponseJSON = await OneSnappMappNameApiResponse.json()
 
   // Geef hier eventueel data aan mee
-  response.render('capture-snapp.liquid', { OneSnappMappNames: OneSnappMappNameApiResponseJSON.data })
+  response.render('capture-snapp.liquid', { 
+    OneSnappMappNames: OneSnappMappNameApiResponseJSON.data,
+
+    // Data om de url te checken op succes of error voor de POST request popup, 
+    status: request.query.status 
+  })
 })
 
 // Maak een GET route voor alle snapps in de database
@@ -100,6 +105,13 @@ app.get('/snapps', async function (request, response) {
 
   // Geef hier eventueel data aan mee
   response.render('snapps.liquid', { MultipleSnapps: MultipleSnappsApiResponseJSON.data, path: request.path })
+})
+
+// Render een error GET request
+app.get('/snapps/location', async function (request, response) {
+
+  // Geef hier eventueel data aan mee
+  response.render('error.liquid')
 })
 
 // Maak een GET route voor alle snapps in de database op locatie
@@ -120,7 +132,7 @@ app.get('/snapps/:uuid', async function (request, response) {
   const OneSnappApiResponseJSON = await OneSnappApiResponse.json()
 
   // Data van alle likes per one-snapp in de database
-  const LikesCountApiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_snap?fields=*,snapmap.name,snapmap.groups.snappthis_group_uuid.name,author.*,actions.action&deep[actions][_filter][action][_eq]=like&filter[uuid]=' + request.params.uuid)
+  const LikesCountApiResponse = await fetch('https://fdnd-agency.directus.app/items/snappthis_snap?fields=*,snapmap.name,snapmap.groups.snappthis_group_uuid.name,author.*,actions.action,actions.user.name&deep[actions][_filter][action][_eq]=like&filter[uuid]=' + request.params.uuid)
   const LikesCountApiResponseJSON = await LikesCountApiResponse.json()
 
   // Data van alle dislikes per one-snapp in de database
@@ -196,7 +208,7 @@ app.post("/snappmaps/:slug", upload.single("file"), async (req, res) => {
 
   // If new item creation failed → send error response
   if (!snapResponse.ok) {
-    return res.redirect(303, `/snappmaps/${req.params.slug}/?status=error`)
+    return res.redirect(303, `/snappmaps/${req.params.slug}/capture/?status=error`)
   }
 
   // If new item creation worked → Success response
